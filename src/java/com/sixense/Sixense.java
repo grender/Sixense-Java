@@ -31,9 +31,9 @@ public class Sixense {
         }
     }
 
-	public static void LoadLibrary( File nativeDir )
+	public static boolean LoadLibrary( File nativeDir )
 	{
-		if( libraryLoaded ) return;
+		if( libraryLoaded ) return true;
 		String os = System.getProperty("os.name");
 		boolean is64bit = System.getProperty("sun.arch.data.model").equalsIgnoreCase("64"); 
 		String[] libs = null;
@@ -101,6 +101,7 @@ public class Sixense {
 			System.out.println( e.toString() );
 			System.out.println( "Couldn't load SixenseJava... :(" );
 		}
+		return libraryLoaded;
     }
 
     /**
