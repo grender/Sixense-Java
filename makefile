@@ -1,3 +1,7 @@
+java:
+	@-mkdir bin/java;
+	cd src/java; javac $(shell cd src/java; find -name *java ) -d ../../bin/java;
+
 VPATH = dist
 CXX = g++
 CXXFLAGS = -g -fPIC -c -Wall -I/usr/lib/jvm/java-6-openjdk-amd64/include -I/usr/lib/jvm/java-6-openjdk-amd64/include/linux -I/media/Data/Dropbox/SixenseSDK_062612/include -I/media/Data/Dropbox/SixenseSDK_062612/include/sixense_utils -I/media/Data/Dropbox/SixenseSDK_062612/include/sixense_utils/controller_manager -I/media/Data/Dropbox/SixenseSDK_062612/include
