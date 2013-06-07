@@ -1,9 +1,17 @@
 package com.sixense;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
 
 /**
- * @author Yoda12999
+ * @author Yoda12999, mabrowning
  */
 public class Sixense {
+
+	private static boolean libraryLoaded = false;
+
     static {
 
         if("x86".equals(System.getProperty("os.arch"))) {
@@ -21,6 +29,78 @@ public class Sixense {
             System.loadLibrary("SixenseJava64");
             System.out.println("SixenseJava64 loaded");
         }
+    }
+
+	public static void LoadLibrary( File nativeDir )
+	{
+		if( libraryLoaded ) return;
+		String os = System.getProperty("os.name");
+		boolean is64bit = System.getProperty("sun.arch.data.model").equalsIgnoreCase("64"); 
+		String[] libs = null;
+		String zipDir = "";
+
+        if ( os.contains("Win") )
+        {
+			zipDir = "windows";
+			if( is64bit )
+				libs = new String[]{ "SixenseJava64.dll" };
+			else
+				libs = new String[]{ "SixenseJava32.dll" };
+		}
+		else if (os.contains("Mac") )
+		{
+			zipDir = "osx";
+			if( is64bit )
+				libs = new String[]{ "libSixenseJava64.jnilib","libsixense_x64.dylib", "libsixense_utils_x64.dylib" };
+			else
+				libs = new String[]{ "libSixenseJava32.jnilib","libsixense.dylib", "libsixense_utils.dylib"  };
+        }
+        else if (os.contains("Linux") )
+        {
+			zipDir = "linux";
+			if( is64bit )
+				libs = new String[]{ "libSixenseJava64.so","libsixense_x64.so", "libsixense_utils_x64.so" };
+			else
+				libs = new String[]{ "libSixenseJava32.so","libsixense.so", "libsixense_utils.so"  };
+        }
+		else
+		{
+            System.out.println("Operating System not supported: " + os );
+		}
+
+		try 
+		{
+			for( String libName : libs )
+			{
+				System.out.println("Loading jar:/"+libName+" ... ");
+				InputStream libStream = Sixense.class.getResourceAsStream( "/" + zipDir + "/" +libName );
+				File outFile = new File( nativeDir, libName );
+				OutputStream out = new FileOutputStream( outFile );
+
+				byte[] buffer = new byte[1024];
+				int len = libStream.read(buffer);
+				while (len != -1) 
+				{
+					out.write(buffer, 0, len);
+					len = libStream.read(buffer);
+				}
+				out.close();
+			}
+
+			if( is64bit )
+				System.loadLibrary( "SixenseJava64" );
+			else
+				System.loadLibrary( "SixenseJava" );
+
+			libraryLoaded = true;
+
+			System.out.println( "SixenseJava loaded");
+		} 
+		catch( Exception e ) 
+		{ 
+			System.out.println( e.toString() );
+			System.out.println( "Couldn't load SixenseJava... :(" );
+		}
     }
 
     /**

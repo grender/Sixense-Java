@@ -1,6 +1,11 @@
+SixenseJava.jar: java
+	cd bin/java; zip ../../SixenseJava.jar -r .
+	cd native; zip ../SixenseJava.jar -r .
+
 java:
-	@-mkdir bin/java;
+	@-mkdir bin/java 2>/dev/null;
 	cd src/java; javac $(shell cd src/java; find -name *java ) -d ../../bin/java;
+
 
 VPATH = dist
 CXX = g++
