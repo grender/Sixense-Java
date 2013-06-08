@@ -9,7 +9,6 @@ java:
 .PHONY: clean all java jar
 
 
-VPATH = dist
 CXX = g++
 
 SIXENSE= /home/mabrowning/MinecraftDev/Hydra/SixenseSDK_062612/
@@ -21,10 +20,12 @@ OBJECTS = $(SOURCES:.cpp=.o)
 all: libSixenseJava32.so libSixenseJava64.so
 
 libSixenseJava32.so: $(addprefix build/32/,$(OBJECTS))
-	$(CXX) $(LDFLAGS)$@ -m32 -o dist/$@ $^ -L$(SIXENSE)lib/linux/release -lsixense -lsixense_utils
+	$(CXX) $(LDFLAGS)$@ -m32 -o native/linux/$@ $^ -L$(SIXENSE)lib/linux/release -lsixense -lsixense_utils
+	strip native/linux/$@
 
 libSixenseJava64.so: $(addprefix build/64/,$(OBJECTS))
-	$(CXX) $(LDFLAGS)$@ -m64 -o dist/$@ $^ -L$(SIXENSE)lib/linux_x64/release -lsixense_x64 -lsixense_utils_x64
+	$(CXX) $(LDFLAGS)$@ -m64 -o native/linux/$@ $^ -L$(SIXENSE)lib/linux_x64/release -lsixense_x64 -lsixense_utils_x64
+	strip native/linux/$@
 
 build/32/%.o: src/native/%.cpp
 	@-mkdir -p $(dir $@)
@@ -35,4 +36,4 @@ build/64/%.o: src/native/%.cpp
 	$(CXX) $(CXXFLAGS) -m64 -o $@ $<
 
 clean:
-	rm -r dist/*.so build/32/*.o build/64/*.o
+	rm -r build/32/*.o build/64/*.o
