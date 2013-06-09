@@ -14,6 +14,7 @@ public class ControllerData {
         {1, 0, 0}, {0, 1, 0}, {0, 0, 1}
     };
     public float[] rot_quat = {0, 0, 0, 0};
+    public float pitch,yaw,roll;
     public int sequence_number = 0;
     public float trigger = 0;
     public boolean is_docked = false;

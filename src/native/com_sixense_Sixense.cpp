@@ -1,6 +1,7 @@
 #include "sixense.h"
 #include "com_sixense_Sixense.h"
 #include "sixense_java_utils.h"
+#include "Quat.h"
 
 JNIEXPORT jboolean JNICALL Java_com_sixense_Sixense_init(JNIEnv *, jclass) {
     int i;
@@ -228,6 +229,20 @@ void setControllerData(JNIEnv *env, jobject ref, sixenseControllerData data) {
     env->SetFloatArrayRegion(rot_quat, 0, 4, rot_quat2);
     env->SetObjectField(ref, fid, rot_quat);
     env->DeleteLocalRef(rot_quat);
+
+	float pitch,yaw,roll;
+	Quat<float> q( data.rot_quat[0], data.rot_quat[1], data.rot_quat[2], data.rot_quat[3] );
+	q.GetEulerAngles<Axis_Y,Axis_X,Axis_Z,Rotate_CW>(&yaw,&pitch,&roll);
+    //pitch
+    fid = env->GetFieldID(cls, "pitch", "F");
+    env->SetFloatField(ref, fid, (jfloat) pitch*180/3.141592);
+    //yaw
+    fid = env->GetFieldID(cls, "yaw", "F");
+    env->SetFloatField(ref, fid, (jfloat) yaw*180/3.141592);
+    //roll
+    fid = env->GetFieldID(cls, "roll", "F");
+    env->SetFloatField(ref, fid, (jfloat) roll*180/3.141592);
+
     //firmware_revision
     fid = env->GetFieldID(cls, "firmware_revision", "I");
     env->SetIntField(ref, fid, (jint) data.firmware_revision);

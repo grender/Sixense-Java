@@ -14,7 +14,7 @@ CXX = g++
 SIXENSE= /home/mabrowning/MinecraftDev/Hydra/SixenseSDK_062612/
 CXXFLAGS = -g -fPIC -c -Wall -I/usr/lib/jvm/java-6-openjdk-amd64/include -I/usr/lib/jvm/java-6-openjdk-amd64/include/linux -I$(SIXENSE)include/sixense_utils -I$(SIXENSE)include/sixense_utils/controller_manager -I$(SIXENSE)include
 LDFLAGS = -shared -fPIC -Wl,-rpath,\$$ORIGIN -Wl,--no-undefined -Wl,-soname,
-SOURCES = com_sixense_Sixense.cpp sixense_java_utils.cpp $(addprefix com_sixense_utils_,ButtonStates.cpp ControllerManager.cpp Derivatives.cpp Events.cpp PlayerMovement.cpp ViewAngles.cpp)
+SOURCES = com_sixense_Sixense.cpp sixense_java_utils.cpp Quat.cpp $(addprefix com_sixense_utils_,ButtonStates.cpp ControllerManager.cpp Derivatives.cpp Events.cpp PlayerMovement.cpp ViewAngles.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 
 all: libSixenseJava32.so libSixenseJava64.so
