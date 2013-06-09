@@ -27,6 +27,7 @@ public class Sixense {
 				libs = new String[]{ "SixenseJava64.dll","sixense_x64.dll","sixense_utils_x64.dll" };
 			else
 				libs = new String[]{ "SixenseJava32.dll","sixense.dll","sixense_utils.dll" };
+			
 		}
 		else if (os.contains("Mac") )
 		{
@@ -69,9 +70,17 @@ public class Sixense {
 			}
 
 			if( is64bit )
+			{
+				System.loadLibrary("sixense_x64");
+				System.loadLibrary("sixense_utils_x64");
 				System.loadLibrary( "SixenseJava64" );
+			}
 			else
+			{
+				System.loadLibrary("sixense");
+				System.loadLibrary("sixense_utils");
 				System.loadLibrary( "SixenseJava32" );
+			}
 
 			libraryLoaded = true;
 
