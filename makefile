@@ -21,14 +21,26 @@ OBJECTS = $(SOURCES:.cpp=.o)
 UNAME:=$(shell uname)
 ifeq ($(UNAME), Darwin)
 CXXFLAGS+= -I/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers -I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+LDFLAGS+=-Wl,-headerpad_max_install_names
 
 all: libSixenseJava32.jnilib libSixenseJava64.jnilib
 
 libSixenseJava32.jnilib: $(addprefix build/32/,$(OBJECTS))
 	$(CXX) $(LDFLAGS) -m32 -o native/osx/$@ $^ -L$(SIXENSE)lib/osx/release_dll -lsixense -lsixense_utils
+	install_name_tool -change /usr/local/lib/libsixense.dylib "@loader_path/libsixense.dylib" native/osx/$@
+	install_name_tool -change /usr/local/lib/libsixense_utils.dylib "@loader_path/libsixense_utils.dylib" native/osx/$@
+
+	install_name_tool -change /usr/local/lib/libsixense.dylib "@loader_path/libsixense.dylib" native/osx/libsixense.dylib
+	install_name_tool -change /usr/local/lib/libsixense.dylib "@loader_path/libsixense.dylib" native/osx/libsixense_utils.dylib
+	install_name_tool -change /usr/local/lib/libsixense_utils.dylib "@loader_path/libsixense_utils.dylib" native/osx/libsixense_utils.dylib
 
 libSixenseJava64.jnilib: $(addprefix build/64/,$(OBJECTS))
 	$(CXX) $(LDFLAGS) -m64 -o native/osx/$@ $^ -L$(SIXENSE)lib/osx_x64/release_dll -lsixense_x64 -lsixense_utils_x64
+	install_name_tool -change /usr/local/lib/libsixense_x64.dylib "@loader_path/libsixense_x64.dylib" native/osx/$@
+	install_name_tool -change /usr/local/lib/libsixense_utils_x64.dylib "@loader_path/libsixense_utils_x64.dylib" native/osx/$@
+	install_name_tool -change /usr/local/lib/libsixense_x64.dylib "@loader_path/libsixense_x64.dylib" native/osx/libsixense_x64.dylib
+	install_name_tool -change /usr/local/lib/libsixense_x64.dylib "@loader_path/libsixense_x64.dylib" native/osx/libsixense_utils_x64.dylib
+	install_name_tool -change /usr/local/lib/libsixense_utils_x64.dylib "@loader_path/libsixense_utils_x64.dylib" native/osx/libsixense_utils_x64.dylib
 
 else
 ifeq ($(UNAME), Linux)
