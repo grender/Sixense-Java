@@ -12,7 +12,7 @@ java:
 CXX = g++
 
 SIXENSE=/home/mabrowning/MinecraftDev/Hydra/SixenseSDK_062612/
-SIXENSE=../../SixenseSDK_062612/
+#SIXENSE=../../SixenseSDK_062612/
 CXXFLAGS = -g -fPIC -c -Wall -I$(SIXENSE)include/sixense_utils -I$(SIXENSE)include/sixense_utils/controller_manager -I$(SIXENSE)include
 LDFLAGS = -shared -fPIC
 SOURCES = com_sixense_Sixense.cpp sixense_java_utils.cpp Quat.cpp $(addprefix com_sixense_utils_,ButtonStates.cpp ControllerManager.cpp Derivatives.cpp Events.cpp PlayerMovement.cpp ViewAngles.cpp)
