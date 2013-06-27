@@ -69,21 +69,29 @@ public class Sixense {
 
 		try 
 		{
+			System.out.println("Extracting libs to: "+nativeDir+". java.library.path: "+System.getProperty("java.library.path"));
 			for( String libName : libs )
 			{
 				System.out.println("Loading jar:/"+libName+" ... ");
 				InputStream libStream = Sixense.class.getResourceAsStream( "/" + zipDir + "/" +libName );
-				File outFile = new File( nativeDir, libName );
-				OutputStream out = new FileOutputStream( outFile );
-
-				byte[] buffer = new byte[1024];
-				int len = libStream.read(buffer);
-				while (len != -1) 
+				if( libStream != null )
 				{
-					out.write(buffer, 0, len);
-					len = libStream.read(buffer);
+					byte[] buffer = new byte[1024];
+					int len = libStream.read(buffer);
+					File outFile = new File( nativeDir, libName );
+					OutputStream out = new FileOutputStream( outFile );
+
+					while (len != -1) 
+					{
+						out.write(buffer, 0, len);
+						len = libStream.read(buffer);
+					}
+					out.close();
 				}
-				out.close();
+				else
+				{
+					System.err.println("Couldn't open "+libName+" from jar file! Are you using a strange classloader?");
+				}
 			}
 
 			if( is64bit )
