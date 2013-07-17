@@ -1,6 +1,9 @@
 /nbproject/
 /lib/
-/build/
 /desktop.ini
 /build.xml
-/dist/
+*~
+SixenseJava/target/
+SixenseJavaLibrary/build/
+SixenseJavaLibrary/target/
+*.swp
