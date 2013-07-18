@@ -6,9 +6,9 @@
 
   <groupId>com.sixense</groupId>
   <artifactId>SixenseJava</artifactId>
-  <version>062612.0</version>
+  <version>062612.1</version>
 
-  <name>JRift</name>
+  <name>SixenseJava</name>
   <description>Java Wrapper (JNI) for the Sixense SDK under Windows, OSX, and Linux.</description>
   <url>https://github.com/mabrowning/Sixense-Java</url>
 

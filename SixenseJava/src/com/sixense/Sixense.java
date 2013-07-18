@@ -34,6 +34,7 @@ public class Sixense {
 		if( libraryLoaded ) return true;
 		String os = System.getProperty("os.name");
 		boolean is64bit = System.getProperty("sun.arch.data.model").equalsIgnoreCase("64"); 
+		/*
 		String[] libs = null;
 		String zipDir = "";
 
@@ -116,6 +117,22 @@ public class Sixense {
 			System.out.println( e.toString() );
 			System.out.println( "Couldn't load SixenseJava... :(" );
 		}
+		*/
+		if( is64bit )
+		{
+			System.loadLibrary("sixense_x64");
+			System.loadLibrary("sixense_utils_x64");
+			System.loadLibrary("SixenseJava64" );
+		}
+		else
+		{
+			System.loadLibrary("sixense");
+			System.loadLibrary("sixense_utils");
+			System.loadLibrary("SixenseJava32" );
+		}
+
+		libraryLoaded = true;
+		System.out.println("Loaded SixenseJava");
 		return libraryLoaded;
     }
 
