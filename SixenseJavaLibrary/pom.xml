@@ -10,14 +10,7 @@
 
   <name>SixenseJavaLibrary</name>
   <description>Java Wrapper (JNI) for the Sixense SDK under Windows, OSX, and Linux.</description>
-  <url>https://github.com/mabrowning/Sixense-Java</url>
-
-  <distributionManagement>
-	<repository>
-	  <id>minecrift</id>
-	  <url>file:../../repo/</url>
-    </repository>
-  </distributionManagement>
+  <url>https://github.com/grender/Sixense-Java</url>
 
   <build>
 	<plugins>
