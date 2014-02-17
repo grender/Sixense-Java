@@ -29,7 +29,7 @@ public class Sixense {
 
 	private static boolean libraryLoaded = false;
 
-	public static boolean LoadLibrary( File nativeDir )
+	public static boolean loadLibrary( File nativeDir )
 	{
 		if( libraryLoaded ) return true;
 		String os = System.getProperty("os.name");
