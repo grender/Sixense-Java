@@ -85,12 +85,13 @@ public class LaserPointer {
      * @param topRightB
      * @return
      */
+/*
     public boolean compute(float[] bottomLeftA, float[] topRightA, float[] bottomLeftB, float[] topRightB) {
 	return compute(bottomLeftA[0],bottomLeftA[1],bottomLeftA[2],topRightA[0],topRightA[1],topRightA[2],bottomLeftB[0],bottomLeftB[1],bottomLeftB[2],topRightB[0],topRightB[1],topRightB[2]);
     }
 
     public native boolean compute(float bla1,float bla2,float bla3, float tra1, float tra2, float tra3,float blb1,float blb2,float blb3, float trb1, float trb2, float trb3);
-
+*/
     /**
      *
      * @param width
@@ -99,10 +100,11 @@ public class LaserPointer {
      * @param topRight
      * @return
      */
+/*
     public boolean compute(float width, float aspect, float[] bottomLeft, float[] topRight) {
 	return compute(width, aspect, bottomLeft[0], bottomLeft[1],bottomLeft[2],topRight[0],topRight[1],topRight[2]);
     }
 
     public native boolean compute(float width, float aspect, float bl1,float bl2,float bl3, float tr1, float tr2, float tr3);
-
+*/
 }

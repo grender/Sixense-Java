@@ -82,7 +82,7 @@ JNIEXPORT jfloatArray JNICALL Java_com_sixense_utils_LaserPointer_getIntersectio
     env->SetFloatArrayRegion(inter, 0, 2, inter3);
 	return inter;
 }
-
+/*
 JNIEXPORT jboolean JNICALL Java_com_sixense_utils_LaserPointer_compute1
   (JNIEnv *env, jobject self, jfloat bla1,jfloat bla2,jfloat bla3, jfloat tra1, jfloat tra2, jfloat tra3,jfloat blb1,jfloat blb2,jfloat blb3, jfloat trb1, jfloat trb2, jfloat trb3) {
 	jfieldID fid = getPeerID(env, self);
@@ -111,3 +111,4 @@ JNIEXPORT jboolean JNICALL Java_com_sixense_utils_LaserPointer_compute2
 	
 	return result ? JNI_TRUE : JNI_FALSE;
 }
+*/

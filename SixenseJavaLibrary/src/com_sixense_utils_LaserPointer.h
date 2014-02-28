@@ -62,13 +62,13 @@ JNIEXPORT jfloatArray JNICALL Java_com_sixense_utils_LaserPointer_getScreenCente
  */
 JNIEXPORT jfloatArray JNICALL Java_com_sixense_utils_LaserPointer_getIntersection
   (JNIEnv *, jobject, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat);
-
+/*
 JNIEXPORT jboolean JNICALL Java_com_sixense_utils_LaserPointer_compute1
   (JNIEnv *, jobject, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat);
 
 JNIEXPORT jboolean JNICALL Java_com_sixense_utils_LaserPointer_compute2
   (JNIEnv *, jobject, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat);
-
+*/
 #ifdef __cplusplus
 }
 #endif
