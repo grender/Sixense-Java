@@ -3,11 +3,11 @@
 
 CXX = g++
 
-SIXENSE=/home/mabrowning/MinecraftDev/Hydra/SixenseSDK_062612/
+SIXENSE=/home/grender/soft/sixenseSDK_linux_OSX/
 #SIXENSE=../../../SixenseSDK_062612/
 CXXFLAGS = -g -fPIC -c -Wall -I$(SIXENSE)include/sixense_utils -I$(SIXENSE)include/sixense_utils/controller_manager -I$(SIXENSE)include
 LDFLAGS = -shared -fPIC
-SOURCES = com_sixense_Sixense.cpp sixense_java_utils.cpp Quat.cpp $(addprefix com_sixense_utils_,ButtonStates.cpp ControllerManager.cpp Derivatives.cpp Events.cpp PlayerMovement.cpp ViewAngles.cpp)
+SOURCES = com_sixense_Sixense.cpp sixense_java_utils.cpp Quat.cpp $(addprefix com_sixense_utils_,ButtonStates.cpp ControllerManager.cpp Derivatives.cpp Events.cpp LaserPointer.cpp PlayerMovement.cpp ViewAngles.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 OUTDIR = natives
 
@@ -37,7 +37,7 @@ $(OUTDIR)/osx/libSixenseJava64.jnilib: $(addprefix build/64/,$(OBJECTS))
 
 else
 ifeq ($(UNAME), Linux)
-CXXFLAGS+= -I/usr/lib/jvm/java-6-openjdk-amd64/include -I/usr/lib/jvm/java-6-openjdk-amd64/include/linux 
+CXXFLAGS+= -I/usr/lib/jvm/java-7-oracle/include -I/usr/lib/jvm/java-7-oracle/include/linux 
 
 LDFLAGS+= -Wl,-rpath,\$$ORIGIN -Wl,--no-undefined -Wl,-soname,
 all: $(OUTDIR)/linux/libSixenseJava32.so $(OUTDIR)/linux/libSixenseJava64.so
@@ -46,9 +46,9 @@ $(OUTDIR)/linux/libSixenseJava32.so: $(addprefix build/32/,$(OBJECTS))
 	$(CXX) $(LDFLAGS) -m32 -o $@ $^ -L$(SIXENSE)lib/linux/release -lsixense -lsixense_utils
 	strip $@
 
-$(OUTDIR)/linux/libSixenseJava64.so: $(addprefix build/64/,$(OBJECTS))
-	$(CXX) $(LDFLAGS) -m64 -o $@ $^ -L$(SIXENSE)lib/linux_x64/release -lsixense_x64 -lsixense_utils_x64
-	strip $@
+#$(OUTDIR)/linux/libSixenseJava64.so: $(addprefix build/64/,$(OBJECTS))
+#	$(CXX) $(LDFLAGS) -m64 -o $@ $^ -L$(SIXENSE)lib/linux_x64/release -lsixense_x64 -lsixense_utils_x64
+#	strip $@
 
 endif
 endif

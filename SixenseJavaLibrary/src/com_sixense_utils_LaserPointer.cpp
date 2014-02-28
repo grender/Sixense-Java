@@ -24,6 +24,7 @@ using sixenseMath::Vector2;
 using sixenseMath::Vector3;
 using sixenseMath::Matrix3;
 using sixenseUtils::LaserPointer;
+using sixenseUtils::LaserPointerCalib;
 
 JNIEXPORT jlong JNICALL Java_com_sixense_utils_LaserPointer_create(JNIEnv *, jobject) {
     LaserPointer * laser = new LaserPointer();
@@ -80,4 +81,33 @@ JNIEXPORT jfloatArray JNICALL Java_com_sixense_utils_LaserPointer_getIntersectio
 	jfloat inter3[2] = {inter2[0], inter2[1]};
     env->SetFloatArrayRegion(inter, 0, 2, inter3);
 	return inter;
+}
+
+JNIEXPORT jboolean JNICALL Java_com_sixense_utils_LaserPointer_compute1
+  (JNIEnv *env, jobject self, jfloat bla1,jfloat bla2,jfloat bla3, jfloat tra1, jfloat tra2, jfloat tra3,jfloat blb1,jfloat blb2,jfloat blb3, jfloat trb1, jfloat trb2, jfloat trb3) {
+	jfieldID fid = getPeerID(env, self);
+	LaserPointer * laser = (LaserPointer *)env->GetLongField(self, fid);
+	LaserPointerCalib* calib=new LaserPointerCalib();
+
+	bool result = calib->compute(Vector3(bla1,bla2,bla3),Vector3(tra1,tra2,tra3),Vector3(blb1,blb2,blb3), Vector3(trb1,trb2,trb3));
+	
+	laser->setScreenSize(calib->getScrenSize());
+	laser->setScreenCenterOffsetFromBase(calib->setScreenCenterOffsetFromBase());
+	delete calib;
+
+	return result ? JNI_TRUE : JNI_FALSE;
+}
+  
+JNIEXPORT jboolean JNICALL Java_com_sixense_utils_LaserPointer_compute2
+  (JNIEnv *env, jobject self, jfloat width, jfloat aspect, jfloat bl1,jfloat bl2,jfloat bl3, jfloat tr1, jfloat tr2, jfloat tr3) {
+	jfieldID fid = getPeerID(env, self);
+	LaserPointer * laser = (LaserPointer *)env->GetLongField(self, fid);
+	LaserPointerCalib* calib=new LaserPointerCalib();
+	bool result = calib->compute(width,aspect,Vector3(bl1,bl2,bl3),Vector3(tr1,tr2,tr3));
+	
+	laser->setScreenSize(calib->getScrenSize());
+	laser->setScreenCenterOffsetFromBase(calib->setScreenCenterOffsetFromBase());
+	delete calib;
+	
+	return result ? JNI_TRUE : JNI_FALSE;
 }
